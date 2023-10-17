@@ -6,11 +6,11 @@ class CustomUserCreation(UserCreationForm):
 
     class Meta:
         model = CustomeUser
-        fields = ['email', 'password1', 'password2']
+        fields = ['pelake_mashin', 'password1', 'password2']
 
 
 class AuthenticationForm(forms.Form):
-    email = forms.EmailField()
+    pelake_mashin = forms.CharField()
     password = forms.CharField(
         label=("Password"),
         strip=False,
@@ -20,4 +20,4 @@ class CustomUserProfile(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['user','username', 'id_code', 'first_name', 'last_name','phone', 'address']
+        fields = ['user','pelake_mashin', 'id_code', 'first_name', 'last_name','phone', 'address']

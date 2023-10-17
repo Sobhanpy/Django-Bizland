@@ -1,12 +1,11 @@
 from django.db import models
 
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import  AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomeUserManager(BaseUserManager):
     def create_user(self,pelake_mashin,password,**extra_fields):
         if not pelake_mashin:
-            raise ValueError ('pelake_mashin can not be empty')
-        pelake_mashin = self.normalize_pelake_mashin(pelake_mashin)
+            raise ValueError ('pelake_mashinet ro bede')
         user = self.model(pelake_mashin=pelake_mashin, **extra_fields)
         user.set_password(password)
         user.save()
@@ -27,7 +26,7 @@ class CustomeUserManager(BaseUserManager):
         return self.create_user(pelake_mashin,password,**extra_fields)
 
 class CustomeUser(AbstractBaseUser,PermissionsMixin):
-    pelake_mashin = models.pelake_mashinField(unique=True)
+    pelake_mashin = models.CharField(unique=True)
     is_active = models.BooleanField (default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
