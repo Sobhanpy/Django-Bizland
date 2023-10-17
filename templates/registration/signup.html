@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'content' %}
+<form method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">signup new user</button>
+    {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endif %}
+</form>
+{% endblock 'content' %}
