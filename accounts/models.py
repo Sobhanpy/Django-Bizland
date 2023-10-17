@@ -3,16 +3,16 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomeUserManager(BaseUserManager):
-    def create_user(self,email,password,**extra_fields):
-        if not email:
-            raise ValueError ('email can not be empty')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+    def create_user(self,pelake_mashin,password,**extra_fields):
+        if not pelake_mashin:
+            raise ValueError ('pelake_mashin can not be empty')
+        pelake_mashin = self.normalize_pelake_mashin(pelake_mashin)
+        user = self.model(pelake_mashin=pelake_mashin, **extra_fields)
         user.set_password(password)
         user.save()
         return user
     
-    def create_superuser(self,email,password,**extra_fields):
+    def create_superuser(self,pelake_mashin,password,**extra_fields):
 
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_superuser',True)
@@ -24,10 +24,10 @@ class CustomeUserManager(BaseUserManager):
             raise ValueError ('superuser must be is_superuser=True')
         if extra_fields.get('is_verified') is not True:
             raise ValueError ('superuser muse be is_verified=True')
-        return self.create_user(email,password,**extra_fields)
+        return self.create_user(pelake_mashin,password,**extra_fields)
 
 class CustomeUser(AbstractBaseUser,PermissionsMixin):
-    email = models.EmailField(unique=True)
+    pelake_mashin = models.pelake_mashinField(unique=True)
     is_active = models.BooleanField (default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -35,11 +35,11 @@ class CustomeUser(AbstractBaseUser,PermissionsMixin):
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'pelake_mashin'
     objects = CustomeUserManager()
 
     def __str__(self):
-        return self.email
+        return self.pelake_mashin
 
 class Profile(models.Model):
     user = models.ForeignKey(CustomeUser,on_delete=models.CASCADE)

@@ -14,14 +14,14 @@ def Login(request):
         form = AuthenticationForm()
         return render(request,'registration/login.html', context={'form': form})
     elif request.method == 'POST':
-            email = request.POST.get('email')
+            pelake_mashin = request.POST.get('pelake_mashin')
             password = request.POST.get('password')      
-            user = authenticate(email=email, password=password)
+            user = authenticate(pelake_mashin=pelake_mashin, password=password)
             if user is not None:
                 login(request,user)
                 return redirect('/')
             else:
-                messages.add_message(request, messages.ERROR, 'Your Email or Password is not valid')
+                messages.add_message(request, messages.ERROR, 'Your pelake_mashin or Password is not valid')
                 return redirect(request.path_info)
 
 @login_required
@@ -39,17 +39,17 @@ def signup(request):
             form = CustomUserCreation(request.POST)
             if form.is_valid():
                 form.save()
-                email = request.POST.get('email')
+                pelake_mashin = request.POST.get('pelake_mashin')
                 password = request.POST.get('password1')
-                user=authenticate(email=email,password=password)
+                user=authenticate(pelake_mashin=pelake_mashin,password=password)
                 if user is not None:
                     login(request,user)
                     return redirect('accounts:complate_profile')
                 else:
-                    messages.add_message(request, messages.ERROR, 'Your Email or Password is not valid')
+                    messages.add_message(request, messages.ERROR, 'Your pelake_mashin or Password is not valid')
                     return redirect(request.path_info)
             else:
-                messages.add_message(request, messages.ERROR, 'Your Email or Password is not valid')
+                messages.add_message(request, messages.ERROR, 'Your pelake_mashin or Password is not valid')
                 return redirect(request.path_info)            
         
 def complate_profile(request):
